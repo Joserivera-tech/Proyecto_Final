@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>img/BackGround.png</file>
+        <file>img/Sprites_Plataformas.png</file>
+    </qresource>
+</RCC>
