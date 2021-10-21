@@ -6,6 +6,7 @@
 #include <QGraphicsView>
 #include <QPixmap>
 #include <QTimer>
+#include <QVector>
 
 #include "plataformas.h"
 
@@ -33,6 +34,11 @@ private:
 
     Plataformas *P1;
 
+    QVector<Plataformas *> plataf;
+
+
+
     void set_window();
+    void Const_Plataforma(int x, int y, int largo, int alto);
 };
 #endif // MAINWINDOW_H

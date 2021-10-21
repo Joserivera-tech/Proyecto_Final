@@ -8,16 +8,14 @@
 #include <QPixmap>
 #include <QObject>
 
-
-
 class Plataformas: public QObject, public QGraphicsPixmapItem
 {
-
 private:
     QPixmap img;
     QPixmap sprites;
 public:
-    Plataformas(int ancho, int alto);
+    Plataformas();
+    void Set_plataforma(int tipo, int bloque);
 };
 
 #endif // PLATAFORMAS_H
