@@ -1,19 +1,29 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    timeGame= new QTimer();
+    player = new Personaje(300,200);
+
     set_window();
-    Const_Plataforma(0,600,15,3);
+    Const_Plataforma(0,500,15,3);
+
+    scene->addItem(player);
+    connect(timeGame,SIGNAL(timeout()),this,SLOT(movP()));
+    timeGame->start(100);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
     delete scene;
+    delete player;
+    delete timeGame;
 }
 
 void MainWindow::set_window()
@@ -27,7 +37,7 @@ void MainWindow::set_window()
     ui->graphicsView_puntaje->setGeometry(0,0,tam*2*col,tam*2);
 
     scene->setSceneRect(0,tam*2,tam*col,tam*fil);//tamanio de la escena
-    puntaje->setSceneRect(0,0,tam*2*col-2,tam*2-2);
+    puntaje->setSceneRect(0,0,tam*col-2,tam*2-2);
     ui->graphicsView->setScene(scene);
     ui->graphicsView_puntaje->setScene(puntaje);
     setFixedSize(tam*col+4,tam*(fil+2));
@@ -36,7 +46,7 @@ void MainWindow::set_window()
 
 void MainWindow::Const_Plataforma(int x, int y, int largo, int alto)
 {
-    int tipo=3, bloque;
+    int tipo=1, bloque;
 
     for(int c=0;c<largo;c++){
         for(int f=0;f<alto;f++){
@@ -51,9 +61,13 @@ void MainWindow::Const_Plataforma(int x, int y, int largo, int alto)
             P1= new Plataformas();
             P1->Set_plataforma(tipo,bloque);
             plataf.push_back(P1);
-            P1->setPos(x+(c*40),y+(f*40));
+            P1->setPos(x+(c*40),y+(f*40)+80);
             scene->addItem(P1);
         }
     }
 }
 
+void MainWindow::movP()
+{
+    player->getPos(player->collidingItems(),P1->type());
+}

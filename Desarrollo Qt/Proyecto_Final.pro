@@ -11,10 +11,12 @@ CONFIG += c++11
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
+    personaje.cpp \
     plataformas.cpp
 
 HEADERS += \
     mainwindow.h \
+    personaje.h \
     plataformas.h
 
 FORMS += \

@@ -9,6 +9,7 @@
 #include <QVector>
 
 #include "plataformas.h"
+#include "personaje.h"
 
 #define tam 40
 #define fil 15
@@ -22,6 +23,8 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
+private slots:
+    void movP();
 
 public:
     MainWindow(QWidget *parent = nullptr);
@@ -32,7 +35,10 @@ private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene, *puntaje;
 
+    QTimer *timeGame;
+
     Plataformas *P1;
+    Personaje *player;
 
     QVector<Plataformas *> plataf;
 
