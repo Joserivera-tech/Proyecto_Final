@@ -15,8 +15,9 @@ private:
     QPixmap sprites;
 public:
     char tipe='p';
+    float friccion;
 
-    Plataformas();
+    Plataformas(float f);
     void Set_plataforma(int tipo, int bloque);
 
 };

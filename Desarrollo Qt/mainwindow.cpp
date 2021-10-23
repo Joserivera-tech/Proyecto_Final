@@ -11,11 +11,12 @@ MainWindow::MainWindow(QWidget *parent)
     player = new Personaje(300,200);
 
     set_window();
-    Const_Plataforma(0,500,15,3);
+    Const_Plataforma(0,550,15,3);
+    Const_Plataforma(0,480,4,1);
 
     scene->addItem(player);
     connect(timeGame,SIGNAL(timeout()),this,SLOT(movP()));
-    timeGame->start(100);
+    timeGame->start(30);
 }
 
 MainWindow::~MainWindow()
@@ -58,7 +59,7 @@ void MainWindow::Const_Plataforma(int x, int y, int largo, int alto)
             else bloque=4;
 
 
-            P1= new Plataformas();
+            P1= new Plataformas(0.3);
             P1->Set_plataforma(tipo,bloque);
             plataf.push_back(P1);
             P1->setPos(x+(c*40),y+(f*40)+80);
@@ -70,4 +71,20 @@ void MainWindow::Const_Plataforma(int x, int y, int largo, int alto)
 void MainWindow::movP()
 {
     player->getPos(player->collidingItems(),P1->type());
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *i)
+{
+    if(i->key()==Qt::Key_A){
+        player->vx-=5;
+    }
+    else if(i->key()==Qt::Key_D){
+        player->vx+=5;
+    }
+    else if(i->key()==Qt::Key_W && player->suelo){
+        player->vy=30;
+        if(player->suelo) player->suelo=false;
+        //else if(player->dobleSalto) player->dobleSalto=false;
+    }
+
 }

@@ -1,9 +1,10 @@
 #include "plataformas.h"
 
-Plataformas::Plataformas()
+Plataformas::Plataformas(float f)
 {
     sprites = QPixmap(":/img/Sprites_Plataformas.png");
     setPixmap(img);
+    friccion=f;
 }
 
 void Plataformas::Set_plataforma(int tipo, int bloque)

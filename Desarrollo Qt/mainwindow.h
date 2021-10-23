@@ -7,6 +7,7 @@
 #include <QPixmap>
 #include <QTimer>
 #include <QVector>
+#include <QKeyEvent>
 
 #include "plataformas.h"
 #include "personaje.h"
@@ -46,5 +47,6 @@ private:
 
     void set_window();
     void Const_Plataforma(int x, int y, int largo, int alto);
+    void keyPressEvent(QKeyEvent *i);
 };
 #endif // MAINWINDOW_H
