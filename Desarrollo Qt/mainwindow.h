@@ -26,6 +26,7 @@ class MainWindow : public QMainWindow
 
 private slots:
     void movP();
+    void on_Reset_clicked();
 
 public:
     MainWindow(QWidget *parent = nullptr);
@@ -42,7 +43,6 @@ private:
     Personaje *player;
 
     QVector<Plataformas *> plataf;
-    QRect *pies;
 
 
 

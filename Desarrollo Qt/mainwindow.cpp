@@ -9,16 +9,13 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     timeGame= new QTimer();
     player = new Personaje(300,460);
-    pies=new QRect(player->x()+5,player->y()+0,10,2);
-
 
     set_window();
     Const_Plataforma(0,500,15,3,true);
-    //Const_Plataforma(0,420,4,1,false);
-    //Const_Plataforma(140,440,2,1,false);
-    Const_Plataforma(40,400,1,10,true);
-    Const_Plataforma(400,400,1,10,true);
+    Const_Plataforma(40,320,1,10,true);
+    Const_Plataforma(400,320,1,10,true);
     Const_Plataforma(80,420,2,1,true);
+    Const_Plataforma(280,380,3,1,true);
 
 
     //scene->addItem()
@@ -79,22 +76,24 @@ void MainWindow::Const_Plataforma(int x, int y, int largo, int alto, bool fondo)
 void MainWindow::movP()
 {
     player->getPos(player->collidingItems(),P1->type());
-    pies->moveTo(player->x()+5,player->y()+0);
+}
+
+void MainWindow::on_Reset_clicked()
+{
+    player->px=300;
+    player->py=460;
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *i)
 {
     if(i->key()==Qt::Key_A){
-        player->vx-=5;
+        player->vx-=10;
     }
     else if(i->key()==Qt::Key_D){
-        player->vx+=5;
+        player->vx+=10;
     }
     else if(i->key()==Qt::Key_W && player->suelo && !player->Salto){
         player->Salto=true;
-        //player->vy=25;
-        //if(player->suelo) player->suelo=false;
-        //else if(player->dobleSalto) player->dobleSalto=false;
     }
 
 }
