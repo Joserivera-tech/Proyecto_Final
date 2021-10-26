@@ -18,7 +18,6 @@ void Personaje::getPos(QList<QGraphicsItem *> objetos, int tipe)
     if(objetos.size()==0) suelo=false;
     else{
         for(int i =0;i<objetos.size();i++){
-
             //rectangulos limitantes con el personaje
             pies=QRect(px+8,py+28,15,1);
             cabeza=QRect(px+8,py,15,1);
@@ -49,6 +48,7 @@ void Personaje::getPos(QList<QGraphicsItem *> objetos, int tipe)
                     px=Pox-30;
                 }
             }
+
         }
     }
 

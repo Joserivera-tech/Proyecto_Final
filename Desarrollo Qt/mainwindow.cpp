@@ -1,7 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -11,16 +9,14 @@ MainWindow::MainWindow(QWidget *parent)
     player = new Personaje(300,460);
 
     set_window();
-    Const_Plataforma(0,500,15,3,true);
-    Const_Plataforma(40,320,1,10,true);
-    Const_Plataforma(400,320,1,10,true);
-    Const_Plataforma(80,420,2,1,true);
-    Const_Plataforma(280,380,3,1,true);
+    CrearMapa(1);
+
 
 
     //scene->addItem()
     scene->addItem(player);
     connect(timeGame,SIGNAL(timeout()),this,SLOT(movP()));
+
     timeGame->start(30);
 }
 
@@ -70,6 +66,31 @@ void MainWindow::Const_Plataforma(int x, int y, int largo, int alto, bool fondo)
             P1->setPos(x+(c*40),y+(f*40)+80);
             scene->addItem(P1);
         }
+    }
+}
+
+void MainWindow::CrearMapa(int TipoDeNivel)
+{
+    int Limites[4][5]{
+        {0,500,15,3,true},//limite inferior
+        {-40,0,1,15,true},//limite izquierdo
+        {600,0,1,15,true},//limite derecho
+        {0,-40,15,1,true} //limite superior
+    };
+    int Nivel1[][5]={
+        {200,280,3,1,true},
+        {40,340,1,4,true},
+        {400,340,2,4,true},
+        {80,430,2,1,true},
+        {280,395,3,1,true}
+    };
+    for(int p=0;p<4;p++){
+        Const_Plataforma(Limites[p][0],Limites[p][1],Limites[p][2],Limites[p][3],Limites[p][4]);
+    }
+
+    int Nplataformas[3]={5,0,0};
+    for(int n=0;n<Nplataformas[TipoDeNivel-1];n++){
+        if(TipoDeNivel==1) Const_Plataforma(Nivel1[n][0],Nivel1[n][1],Nivel1[n][2],Nivel1[n][3],Nivel1[n][4]);
     }
 }
 

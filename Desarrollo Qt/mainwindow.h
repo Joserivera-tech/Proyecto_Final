@@ -11,6 +11,7 @@
 
 #include "plataformas.h"
 #include "personaje.h"
+#include "mecanicaprincipal.h"
 
 #define tam 40
 #define fil 15
@@ -41,6 +42,7 @@ private:
 
     Plataformas *P1;
     Personaje *player;
+    MecanicaPrincipal *mecanica;
 
     QVector<Plataformas *> plataf;
 
@@ -48,6 +50,7 @@ private:
 
     void set_window();
     void Const_Plataforma(int x, int y, int largo, int alto,bool fondo);
+    void CrearMapa(int TipoDeNivel);
     void keyPressEvent(QKeyEvent *i);
 };
 #endif // MAINWINDOW_H

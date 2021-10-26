@@ -11,11 +11,13 @@ CONFIG += c++11
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
+    mecanicaprincipal.cpp \
     personaje.cpp \
     plataformas.cpp
 
 HEADERS += \
     mainwindow.h \
+    mecanicaprincipal.h \
     personaje.h \
     plataformas.h
 
