@@ -42,11 +42,12 @@ private:
     Personaje *player;
 
     QVector<Plataformas *> plataf;
+    QRect *pies;
 
 
 
     void set_window();
-    void Const_Plataforma(int x, int y, int largo, int alto);
+    void Const_Plataforma(int x, int y, int largo, int alto,bool fondo);
     void keyPressEvent(QKeyEvent *i);
 };
 #endif // MAINWINDOW_H

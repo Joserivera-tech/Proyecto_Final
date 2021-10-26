@@ -8,12 +8,20 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     timeGame= new QTimer();
-    player = new Personaje(300,200);
+    player = new Personaje(300,460);
+    pies=new QRect(player->x()+5,player->y()+0,10,2);
+
 
     set_window();
-    Const_Plataforma(0,550,15,3);
-    Const_Plataforma(0,480,4,1);
+    Const_Plataforma(0,500,15,3,true);
+    //Const_Plataforma(0,420,4,1,false);
+    //Const_Plataforma(140,440,2,1,false);
+    Const_Plataforma(40,400,1,10,true);
+    Const_Plataforma(400,400,1,10,true);
+    Const_Plataforma(80,420,2,1,true);
 
+
+    //scene->addItem()
     scene->addItem(player);
     connect(timeGame,SIGNAL(timeout()),this,SLOT(movP()));
     timeGame->start(30);
@@ -45,7 +53,7 @@ void MainWindow::set_window()
     setWindowTitle("Titulo");
 }
 
-void MainWindow::Const_Plataforma(int x, int y, int largo, int alto)
+void MainWindow::Const_Plataforma(int x, int y, int largo, int alto, bool fondo)
 {
     int tipo=1, bloque;
 
@@ -60,7 +68,7 @@ void MainWindow::Const_Plataforma(int x, int y, int largo, int alto)
 
 
             P1= new Plataformas(0.3);
-            P1->Set_plataforma(tipo,bloque);
+            P1->Set_plataforma(tipo,bloque,fondo);
             plataf.push_back(P1);
             P1->setPos(x+(c*40),y+(f*40)+80);
             scene->addItem(P1);
@@ -71,6 +79,7 @@ void MainWindow::Const_Plataforma(int x, int y, int largo, int alto)
 void MainWindow::movP()
 {
     player->getPos(player->collidingItems(),P1->type());
+    pies->moveTo(player->x()+5,player->y()+0);
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *i)
@@ -81,9 +90,10 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
     else if(i->key()==Qt::Key_D){
         player->vx+=5;
     }
-    else if(i->key()==Qt::Key_W && player->suelo){
-        player->vy=30;
-        if(player->suelo) player->suelo=false;
+    else if(i->key()==Qt::Key_W && player->suelo && !player->Salto){
+        player->Salto=true;
+        //player->vy=25;
+        //if(player->suelo) player->suelo=false;
         //else if(player->dobleSalto) player->dobleSalto=false;
     }
 

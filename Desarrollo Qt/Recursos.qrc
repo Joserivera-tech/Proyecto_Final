@@ -3,5 +3,6 @@
         <file>img/BackGround.png</file>
         <file>img/Sprites_Plataformas.png</file>
         <file>img/Mov_Personaje.png</file>
+        <file>img/Sprites_Plataformas_2.png</file>
     </qresource>
 </RCC>
