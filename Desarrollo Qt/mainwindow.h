@@ -30,7 +30,6 @@ class MainWindow : public QMainWindow
 
 private slots:
     void movP();
-
     void on_Reset_clicked();
     void on_Pausa_clicked();
     void on_Guardar_clicked();

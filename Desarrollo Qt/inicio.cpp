@@ -59,7 +59,7 @@ void Inicio::on_signIn_clicked()
 }
 void Inicio::on_Registrar_clicked()
 {
-    if(ui->password->toPlainText()==ui->Cpassword->toPlainText()){
+    if(ui->password->toPlainText()==ui->Cpassword->toPlainText() && ui->password->toPlainText().size()>0&& ui->name->toPlainText().size()>0){
         registro_users("users.txt",ui->name->toPlainText().toStdString(),ui->password->toPlainText().toStdString(),"0");
     }
 
@@ -91,7 +91,7 @@ string Inicio::leer(string nombre, bool modo)
     return datos;
 }
 
-void Inicio::GetUsers(string archivo, QVector<QVector<string>> *users)
+void Inicio::GetUsers(string archivo, QVector<string> *users, bool show)
 {
     fstream arch(archivo);
     string linea, dato, arreglo[3], datos="Score:\n", valores[2];
@@ -106,31 +106,44 @@ void Inicio::GetUsers(string archivo, QVector<QVector<string>> *users)
             linea.erase(0, pos + 1);
             contador++;
         }
-        if(arreglo[0].size()>3) datos+=arreglo[0]+":  "+arreglo[2]+"\n";
+        if(arreglo[0].size()>0){
+            datos+=arreglo[0]+":  "+arreglo[2]+"\n";
+            users->push_back(arreglo[0]);
+        }
         arreglo[0]="";
         arreglo[1]="";
         arreglo[2]="";
         contador=0;
     }
-    ui->Puntaje->setPlainText(QString::fromStdString(datos));
+    if(show) ui->Puntaje->setPlainText(QString::fromStdString(datos));
 }
 
 
 void Inicio::registro_users(string archivo, string user, string pass, string saldo)
 {
-    string separador=",";
-    fstream text(archivo, fstream::app);
+    QVector<string> users;
+    GetUsers("users.txt",&users,false);
+    QList<string> Lusers=users.toList();
 
-    text << user;
-    text << separador;
-    text << pass;
-    text << separador;
-    text << saldo;
-    text << separador;
-    text << "\n";
+    if(Lusers.count(user)==0){
+        string separador=",";
+        fstream text(archivo, fstream::app);
 
-    text.close();
-    ui->resultado->setText("Resgitro exitoso");
+        text << user;
+        text << separador;
+        text << pass;
+        text << separador;
+        text << saldo;
+        text << separador;
+        text << "\n";
+
+        text.close();
+        ui->resultado->setText("Resgitro exitoso");
+    }
+
+    else{
+         ui->resultado->setText("El nmbre ya esta registrado");
+    }
 }
 
 bool Inicio::users_validation(string usr, string pass)
@@ -139,6 +152,7 @@ bool Inicio::users_validation(string usr, string pass)
     string linea,dato,arreglo[2];
     int fin=0,contador=0;
     size_t pos;//es un valor indefinido
+
     bool validacion=false;
 
     while(getline(archivo,linea)&&fin==0){/*Este bucle se repetira mientras la funcion getline pueda obtener
@@ -171,9 +185,6 @@ bool Inicio::users_validation(string usr, string pass)
         validacion=true;
     }
 
-    else{
-         ui->resultado->setText("Los datos ingresados son incorrectos");
-    }
 
     return validacion;
 }
@@ -207,6 +218,6 @@ void Inicio::on_CargarPartida_clicked()
 
 void Inicio::on_ShowScores_clicked()
 {
-    QVector<QVector<string>> u;
-    GetUsers("users.txt",&u);
+    QVector<string> u;
+    GetUsers("users.txt",&u, true);
 }
