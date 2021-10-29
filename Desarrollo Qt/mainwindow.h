@@ -28,9 +28,11 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
+public slots:
+    void on_Reset_clicked();
 private slots:
     void movP();
-    void on_Reset_clicked();
+
     void on_Pausa_clicked();
     void on_Guardar_clicked();
 

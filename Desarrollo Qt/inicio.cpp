@@ -8,22 +8,25 @@ Inicio::Inicio(QWidget *parent) :
     ui->setupUi(this);
     ui->Puntaje->setReadOnly(true);
 
-    setWindowIcon(QPixmap(":/img/logo.png"));
+    setWindowIcon(QPixmap(":/img/logo.png"));//coloca el icono del juego
 }
 
 Inicio::~Inicio()
 {
     delete ui;
     w->~MainWindow();
+    delete w;
 }
 
 void Inicio::on_Jugar_clicked()
 {
+    //muestra el
     if(w==nullptr){
         w=new MainWindow(usr);
     }
     w->dificult=ui->Dificultad->value()-1;
     w->show();
+    w->on_Reset_clicked();
     w->Iniciar(0);
 }
 void Inicio::on_Dificultad_valueChanged(int arg1)
