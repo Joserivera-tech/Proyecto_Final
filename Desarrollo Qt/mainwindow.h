@@ -8,6 +8,9 @@
 #include <QTimer>
 #include <QVector>
 #include <QKeyEvent>
+#include <QDir>
+#include <QDebug>
+#include <fstream>
 
 #include "plataformas.h"
 #include "personaje.h"
@@ -27,11 +30,20 @@ class MainWindow : public QMainWindow
 
 private slots:
     void movP();
+
     void on_Reset_clicked();
+    void on_Pausa_clicked();
+    void on_Guardar_clicked();
+
+    void on_exit_clicked();
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    int dificult=1,punt=0;
+    MecanicaPrincipal *mecanica;
+    Personaje *player;
 
+    MainWindow(string user,QWidget *parent = nullptr);
+    void Iniciar(long p);
     ~MainWindow();
 
 private:
@@ -40,17 +52,25 @@ private:
 
     QTimer *timeGame;
 
+    QGraphicsPixmapItem *Gameover, *Victory;
     Plataformas *P1;
-    Personaje *player;
-    MecanicaPrincipal *mecanica;
+
+
+    QDir direc;
+
+    bool save=false;
+    long  maxPunt=0;
+    string usr;
 
     QVector<Plataformas *> plataf;
-
-
+    QVector<Plataformas *> Trampo;
 
     void set_window();
-    void Const_Plataforma(int x, int y, int largo, int alto,bool fondo);
+    void inicializar();
+    void Const_Plataforma(int x, int y, int largo, int alto,bool fondo, int tipo);
     void CrearMapa(int TipoDeNivel);
+    string leer(bool modo);
+    void modificar_Score(string lineaDatos, string new_score);
     void keyPressEvent(QKeyEvent *i);
 };
 #endif // MAINWINDOW_H

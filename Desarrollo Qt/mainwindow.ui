@@ -28,28 +28,78 @@
     </property>
    </widget>
    <widget class="QGraphicsView" name="graphicsView_puntaje">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>10</y>
       <width>601</width>
-      <height>61</height>
+      <height>41</height>
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="Reset">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>500</x>
-      <y>30</y>
-      <width>75</width>
-      <height>23</height>
+      <x>30</x>
+      <y>10</y>
+      <width>561</width>
+      <height>41</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Reset</string>
-    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Jugador</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QProgressBar" name="Progresodecancion">
+       <property name="value">
+        <number>0</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="Reset">
+       <property name="text">
+        <string>Reset</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="Pausa">
+       <property name="text">
+        <string>||</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="Guardar">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Save</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="exit">
+       <property name="text">
+        <string>Salir</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
+   <zorder>graphicsView_puntaje</zorder>
+   <zorder>layoutWidget</zorder>
+   <zorder>graphicsView</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

@@ -1,17 +1,20 @@
 #include "personaje.h"
 
-Personaje::Personaje(int x, int y)
+Personaje::Personaje(int x, int y, QList<Plataformas *> P , QList<Plataformas *> tromp)
 {
     Default = QPixmap(":/img/Mov_Personaje.png");
     setPixmap(Default.copy(0,0,14,12).scaled(30,30));
     setPos(x,y);
     px=x;
     py=y;
+
+    Plat=P;
+    PTramp=tromp;
 }
 
-void Personaje::getPos(QList<QGraphicsItem *> objetos, int tipe)
+void Personaje::getPos(QList<QGraphicsItem *> objetos , int tipeP, int tipeD, int time)
 {
-    int Pox,Poy, gravedad=5; // Po: posicion del objeto
+    int Pox,Poy, gravedad=9; // Po: posicion del objeto
     float tiempoS = 0.2; // Tiempo de simulacion
     QRect pies,cabeza,derecha,izquierdo, bloque;
 
@@ -25,13 +28,20 @@ void Personaje::getPos(QList<QGraphicsItem *> objetos, int tipe)
             derecha=QRect(px+29,py+7,1,10);
 
             //colisiones con plataformas
-            if(objetos[i]->type()==tipe){
+            if(objetos[i]->type()==tipeP){
                 Pox=objetos[i]->x(), Poy=objetos[i]->y();
                 bloque=QRect(Pox,Poy,40,40);//rectangulo del bloque con el que colisiona
 
                 //comprueba en que parte esta colisionando
                 if(ComprobarCollision(bloque,pies)){
                     vy=0;
+                    for(unsigned int p =0; p<PTramp.size();p++){
+                        if(ComprobarCollision(QRect(PTramp[p]->x(),PTramp[p]->y(),40,40),pies)){
+                            vy+=45;
+                        }
+                    }
+
+
                     py=Poy-29;
                     suelo = true;
                 }
@@ -49,6 +59,14 @@ void Personaje::getPos(QList<QGraphicsItem *> objetos, int tipe)
                 }
             }
 
+            else if(objetos[i]->type()==tipeD && time>2){
+                vida=false;
+                break;
+            }
+            else{
+                suelo=false;
+            }
+
         }
     }
 
@@ -62,15 +80,28 @@ void Personaje::getPos(QList<QGraphicsItem *> objetos, int tipe)
 
 
     if(Salto){   
-         vy = 25, Salto=false;
+         vy = 35, Salto=false;
     }
     vx= vx +tiempoS*ax;
-    vy= vy -tiempoS*gravedad;
-
-    py = py-vy*tiempoS+0.5*gravedad*(tiempoS)*(tiempoS);  //simulacion de pos en y
+    vy= vy +(ay-gravedad)*tiempoS;
+    py = py-vy*tiempoS;  //simulacion de pos en y
     px = px+vx*tiempoS; //simulacion de pos en x
-    setPos(px,py); //cambio en la pos del personaje   
+    setPos(px,py); //cambio en la pos del personaje
+    setImage();
     ax=0;
+
+}
+
+void Personaje::setImage()
+{
+    if(suelo){
+        if(vx==0) setPixmap(Default.copy(0,0,14,12).scaled(30,30));
+        else if(vx>0) setPixmap(Default.copy(14,0,14,12).scaled(30,30));
+        else if(vx<0){
+            setPixmap(Default.copy(14,0,14,12).transformed(QTransform().inverted()).scaled(30,30));
+        }
+    }
+    else if(vy!=0) setPixmap(Default.copy(70,0,14,12).scaled(30,30));
 
 }
 bool Personaje::ComprobarCollision(QRect rect1,QRect rect2){

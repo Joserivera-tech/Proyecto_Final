@@ -4,5 +4,9 @@
         <file>img/Sprites_Plataformas.png</file>
         <file>img/Mov_Personaje.png</file>
         <file>img/Sprites_Plataformas_2.png</file>
+        <file>Canciones/Daft Punk - Around The World.mp3</file>
+        <file>img/gameOver.png</file>
+        <file>img/Victory.jpeg</file>
+        <file>img/logo.png</file>
     </qresource>
 </RCC>
