@@ -311,7 +311,7 @@ void MainWindow::on_exit_clicked()
     for(int d=0;d<3;d++){
         linea+=arreglo[d]+",";
         if(d<2) dato+=arreglo[d]+",";
-        else dato+=to_string(punt*100/maxPunt)+",";
+        else dato+=to_string(punt)+",";
     }
     if(punt*100/maxPunt>stoi(arreglo[2])){
         modificar_Score(linea,dato);
