@@ -313,7 +313,7 @@ void MainWindow::on_exit_clicked()
         if(d<2) dato+=arreglo[d]+",";
         else dato+=to_string(punt)+",";
     }
-    if(punt*100/maxPunt>stoi(arreglo[2])){
+    if(punt>stoi(arreglo[2])){
         modificar_Score(linea,dato);
     }
     this->hide();
